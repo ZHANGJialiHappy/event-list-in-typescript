@@ -13,6 +13,7 @@ export const TodoTask = ({task}: Props) => {
         <span>{task.taskName} </span>
         <span>{task.deadline}</span>
       </div>
+        <button>X</button>
     </div>
   )
 }
