@@ -36,7 +36,7 @@ const addTask = (): void =>{
       </div>
       <div>
         {todoList.map((task:ITask, key:number) => {
-          return <TodoTask key={key}/>;
+          return <TodoTask task={task} key={key}/>;
         })}
       </div>
     </div>
