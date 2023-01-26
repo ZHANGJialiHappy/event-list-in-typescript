@@ -9,12 +9,12 @@ interface Props{
 
 export const TodoTask = ({task, deleteTask}: Props) => {
   return (
-    <div>
+    <div className="menu bg-base-100 w-56">
       <div>
         <span>{task.taskName} </span>
         <span>{task.deadline}</span>
       </div>
-        <button onClick={()=>deleteTask(task.id)}>X</button>
+        <button className="btn btn-outline" onClick={()=>deleteTask(task.id)}>X</button>
     </div>
   )
 }

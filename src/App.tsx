@@ -39,8 +39,11 @@ const deleteTask = (id: number): void => {
     <div className="App">
       <div>
         <div>
-        <input type="text" placeholder="Task..." name="Task" onChange={handleChange} value={task}/>
-        <input type="number" placeholder="Deadline (in Days)..." name="Deadline" onChange={handleChange} value={deadline}/>
+        <label className="label">
+        <span className="label-text">What is your task?</span>
+        </label>
+        <input type="text" placeholder="Task..." name="Task" className="input w-full max-w-xs" onChange={handleChange} value={task}/>
+        <input type="number" placeholder="Deadline (in Days)..." name="Deadline" className="input w-full max-w-xs" onChange={handleChange} value={deadline}/>
         </div>
         <button onClick={addTask}>Add Task</button>
       </div>
