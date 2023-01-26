@@ -16,7 +16,6 @@ const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setDeadline(Number(event.target.value))
   };
 }
-// (event: ChangeEvent<HTMLInputElement>): void ; event.target.name; Number
 
 const addTask = (): void =>{
   const newTask = {
@@ -30,9 +29,12 @@ const addTask = (): void =>{
   setTodoList([newTask, ...todoList]);
   setTask("");
   setDeadline(0);
-  console.log(todoList);
 }
-// why it doesn't log first item.
+
+const deleteTask = (id: number): void => {
+  setTodoList(todoList.filter((task)=> task.id !== id
+  ))
+}
 
   return (
     <div className="App">
@@ -45,7 +47,7 @@ const addTask = (): void =>{
       </div>
       <div>
         {todoList.map((task:ITask, key:number) => {
-          return <TodoTask task={task} key={key}/>;
+          return <TodoTask task={task} key={key} deleteTask={deleteTask}/>;
         })}
       </div>
     </div>
