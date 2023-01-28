@@ -16,7 +16,7 @@ export const TodoTask = ({ task, deleteTask }: Props) => {
 
             <div className="flex gap-5 items-end">
                 <div>
-                    <span>{task.deadline}</span>
+                    <span> {task.deadline>1 ? task.deadline + ' days' : task.deadline + ' day'}</span>
                 </div>
                 <div>
                     <button className="btn btn-sm btn-outline btn-warning" onClick={() => deleteTask(task.id)}>X</button>
