@@ -36,7 +36,7 @@ const App: FC = () => {
   }
 
   return (
-    <div className="flex justify-center bg-gradient-to-br from-yellow-200 h-screen">
+    <div className="flex justify-center items-start bg-gradient-to-br from-yellow-200 h-screen">
     <div className="flex flex-col justify-center gap-y-5">
       <div className="text-center text-2xl">
         <h1>What a beautiful day!</h1>
