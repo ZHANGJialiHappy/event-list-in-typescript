@@ -36,8 +36,11 @@ const App: FC = () => {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-gradient-to-br from-yellow-200 h-screen">
     <div className="flex flex-col gap-y-5 justify-center">
+      <div className="flex justify-center text-2xl">
+        <h1>What a beautiful day!</h1>
+      </div>
       <div className="flex gap-5 items-end">
         <div>
           <label className="label">
