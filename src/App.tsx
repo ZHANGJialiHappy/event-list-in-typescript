@@ -54,7 +54,7 @@ const App: FC = () => {
           <label className="label">
             <span className="label-text">How many days you need to finish?</span>
           </label>
-          <input type="number" name="Deadline" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={deadline} />
+          <input type="number" name="Deadline" min="0" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={deadline} />
         </div>
 
         <div>
