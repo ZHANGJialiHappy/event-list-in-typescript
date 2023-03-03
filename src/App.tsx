@@ -16,8 +16,8 @@ function reducer(state: TaskState, action: TaskAction) {
       }
     case TaskActionKind.DELETE_TODO:
       return {
-        // ...state,
-        list: state.list.filter((task) => task.id !== action.payload.id)
+        ...state,
+        list: state.list.filter(task => task.id !== action.payload.id)
       };
     case TaskActionKind.COMPLETE_TODO:
       return {...state,
@@ -65,11 +65,11 @@ const App: FC = () => {
   }
 
   const deleteTask = (id: number): void => {
-    dispatch({ type: TaskActionKind.DELETE_TODO, payload: { taskName, deadline, complete: false, id: Math.random() }  })
+    dispatch({ type: TaskActionKind.DELETE_TODO , payload: { id } })
   }
 
-  const completTask = (id: number): void => {
-    dispatch({ type: TaskActionKind.COMPLETE_TODO, payload: { taskName, deadline, complete: false, id: Math.random() }  })
+  const completeTask = (id: number): void => {
+    dispatch({ type: TaskActionKind.COMPLETE_TODO, payload: { id}  })
   }
 
   return (
@@ -97,7 +97,7 @@ const App: FC = () => {
         </form>
         <div>
           {state.list.map((task: Task, key: number) => {
-            return <TodoTask task={task} key={key} deleteTask={deleteTask} completeTask={completTask} />;
+            return <TodoTask task={task} key={key} deleteTask={deleteTask} completeTask={completeTask} />;
           })}
         </div>
       </div>
