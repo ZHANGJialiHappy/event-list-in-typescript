@@ -17,6 +17,6 @@ export enum TaskActionKind {
 
 export type TaskAction = {
     type: TaskActionKind;
-    payload: Task;
+    payload: any;
 };
 
