@@ -1,16 +1,47 @@
-import { FC, ChangeEvent, useState } from 'react';
+import { FC, ChangeEvent, useState, useReducer } from 'react';
 import { TodoTask } from './Components/TodoTask';
-import { ITask } from './Interfaces';
+import { Task, TaskAction, TaskActionKind, TaskState } from './Interfaces';
+
+
+const InitialState = {
+  list: []
+}
+
+function reducer(state: TaskState, action: TaskAction) {
+  switch (action.type) {
+    case TaskActionKind.ADD_TODO:
+      return { 
+        ...state, 
+        list: [action.payload, ...state.list]
+      }
+    case TaskActionKind.DELETE_TODO:
+      return {
+        // ...state,
+        list: state.list.filter((task) => task.id !== action.payload.id)
+      };
+    case TaskActionKind.COMPLETE_TODO:
+      return {...state,
+      list: state.list.map((task)=>{
+        if(task.id === action.payload.id) {
+          return {...task, complete: !task.complete}
+        }
+        return task
+      })};
+    default:
+      return state
+  }
+}
+
 
 const App: FC = () => {
 
-  const [task, setTask] = useState<string>("");
+  const [taskName, setTaskName] = useState<string>("");
   const [deadline, setDeadline] = useState<number | string>(0);
-  const [todoList, setTodoList] = useState<ITask[]>([]);
+  const [state, dispatch] = useReducer(reducer, InitialState)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.name === "Task") {
-      setTask(event.target.value)
+    if (event.target.name === "TaskName") {
+      setTaskName(event.target.value)
     } else {
       let value: number | string = event.target.value
       if (value) {
@@ -25,24 +56,20 @@ const App: FC = () => {
 
   const addTask = (e: React.SyntheticEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const newTask = {
-      taskName: task,
-      deadline: deadline,
-      id: Math.floor(Math.random() * 10000)
-    };
-    if ((!task || /^\s*$/.test(task)) || (typeof deadline === "string")) {
+    if ((!taskName || /^\s*$/.test(taskName)) || (typeof deadline === "string")) {
       return
     }
-    console.log(typeof deadline)
-    setTodoList([newTask, ...todoList]);
-    setTask("");
+    dispatch({ type: TaskActionKind.ADD_TODO, payload: { taskName, deadline, complete: false, id: Math.random() } })
+    setTaskName("");
     setDeadline(0);
-
   }
 
   const deleteTask = (id: number): void => {
-    setTodoList(todoList.filter((task) => task.id !== id
-    ))
+    dispatch({ type: TaskActionKind.DELETE_TODO, payload: { taskName, deadline, complete: false, id: Math.random() }  })
+  }
+
+  const completTask = (id: number): void => {
+    dispatch({ type: TaskActionKind.COMPLETE_TODO, payload: { taskName, deadline, complete: false, id: Math.random() }  })
   }
 
   return (
@@ -56,21 +83,21 @@ const App: FC = () => {
             <label className="label">
               <span className="label-text">What is your task?</span>
             </label>
-            <input type="text" placeholder="Task..." name="Task" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={task} />
+            <input type="text" placeholder="Task..." name="TaskName" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={taskName} />
           </div>
           <div>
             <label className="label">
               <span className="label-text">How many days you need to finish?</span>
             </label>
-            <input type="number" name="Deadline" min="0" step="1" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={deadline} />
+            <input type="number" name="Deadline" min="1" step="1" className="input input-bordered input-warning w-full max-w-xs" onChange={handleChange} value={deadline} />
           </div>
           <div>
             <button className="btn btn-outline btn-warning">Add Task</button>
           </div>
         </form>
         <div>
-          {todoList.map((task: ITask, key: number) => {
-            return <TodoTask task={task} key={key} deleteTask={deleteTask} />;
+          {state.list.map((task: Task, key: number) => {
+            return <TodoTask task={task} key={key} deleteTask={deleteTask} completeTask={completTask} />;
           })}
         </div>
       </div>
