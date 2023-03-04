@@ -17,12 +17,12 @@ function reducer(state: TaskState, action: TaskAction) {
     case TaskActionKind.DELETE_TODO:
       return {
         ...state,
-        list: state.list.filter(task => task.id !== action.payload.id)
+        list: state.list.filter(task => task.id !== action.payload)
       };
     case TaskActionKind.COMPLETE_TODO:
       return {...state,
       list: state.list.map((task)=>{
-        if(task.id === action.payload.id) {
+        if(task.id === action.payload) {
           return {...task, complete: !task.complete}
         }
         return task
@@ -59,17 +59,18 @@ const App: FC = () => {
     if ((!taskName || /^\s*$/.test(taskName)) || (typeof deadline === "string")) {
       return
     }
-    dispatch({ type: TaskActionKind.ADD_TODO, payload: { taskName, deadline, complete: false, id: Math.random() } })
+    const newTask= { taskName, deadline, complete: false, id: Math.random() }
+    dispatch({ type: TaskActionKind.ADD_TODO, payload: newTask})
     setTaskName("");
     setDeadline(0);
   }
 
   const deleteTask = (id: number): void => {
-    dispatch({ type: TaskActionKind.DELETE_TODO , payload: { id } })
+    dispatch({ type: TaskActionKind.DELETE_TODO , payload: id })
   }
 
   const completeTask = (id: number): void => {
-    dispatch({ type: TaskActionKind.COMPLETE_TODO, payload: { id}  })
+    dispatch({ type: TaskActionKind.COMPLETE_TODO, payload: id})
   }
 
   return (

@@ -14,9 +14,8 @@ export enum TaskActionKind {
     DELETE_TODO = "delete_todo",
     COMPLETE_TODO = "complete_todo"
 }
-
-export type TaskAction = {
-    type: TaskActionKind;
-    payload: any;
-};
+  
+ export type TaskAction
+    = { type: "add_todo"; payload: Task }
+    | { type: "delete_todo"|"complete_todo"; payload: number }
 
