@@ -1,4 +1,4 @@
-## stack
+## Stack
 
 1. useReducer
 2. Tailwind CSS 
@@ -6,7 +6,7 @@
 4. react
 5. TypeScript
 
-## demo
+## Demo
 
 Check my application on [`gh-pages`](https://zhangjialihappy.github.io/event-list-in-typescript/).
 
