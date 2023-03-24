@@ -7,6 +7,7 @@
 5. TypeScript
 
 ## demo
+
 Check my application on [`gh-pages`](https://zhangjialihappy.github.io/event-list-in-typescript/).
 
 ## Steps
